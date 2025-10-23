@@ -1,1 +1,17 @@
-<p>blog-list works!</p>
+<div class="container mx-auto">
+      <h1 class="text-3xl font-bold mb-4">Latest Blogs</h1>
+
+      <div *ngIf="blogs.length === 0" class="p-4 bg-white shadow rounded">No blogs yet. Admin can add one.</div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let b of blogs" class="bg-white p-4 rounded shadow">
+          <img *ngIf="b.imageUrl" [src]="b.imageUrl" alt="" class="w-full h-40 object-cover rounded">
+          <h2 class="mt-3 text-xl font-semibold">{{ b.title }}</h2>
+          <p class="text-sm text-gray-500">By {{ b.author }} • {{ b.date | date:'mediumDate' }}</p>
+          <p class="mt-2 text-gray-700 line-clamp-3">{{ b.content }}</p>
+          <div class="mt-3">
+            <a [routerLink]="['/blog', b.id]" class="text-indigo-600 hover:underline">Read more →</a>
+          </div>
+        </div>
+      </div>
+    </div>

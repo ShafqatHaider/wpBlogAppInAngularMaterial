@@ -10,7 +10,7 @@ export class BlogService{
         return JSON.parse(localStorage.getItem(this.storageKey) ||'[]');
     }
 
-    getBysId(id:number):Blog | undefined {
+    getById(id:number):Blog | undefined {
         return this.getAll().find(b=>b.id===id);
     }
 

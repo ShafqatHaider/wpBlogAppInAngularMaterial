@@ -2,7 +2,7 @@ export interface Blog{
     id:number;
     title:string;
     content:string
-    auther:string;
+    author:string;
     date:string;
     imageUrl?:string;
     tags?: string[];

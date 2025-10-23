@@ -1,1 +1,62 @@
-<p>admin-dashboard works!</p>
+ <div class="container mx-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+        <div>
+          <button pButton type="button" label="New Post" class="mr-2" (click)="openNew()"></button>
+          <button pButton type="button" label="Logout" class="p-button-secondary" (click)="logout()"></button>
+        </div>
+      </div>
+
+      <p-table [value]="blogs" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Published</th>
+            <th style="width:200px">Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-blog>
+          <tr>
+            <td>{{blog.title}}</td>
+            <td>{{blog.author}}</td>
+            <td>{{blog.date | date:'short'}}</td>
+            <td>{{blog.published ? 'Yes' : 'No'}}</td>
+            <td>
+              <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="edit(blog)"></button>
+              <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="confirmDelete(blog)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <p-dialog header="{{editing ? 'Edit Post' : 'New Post'}}" [(visible)]="displayDialog" [modal]="true" [style]="{width: '600px'}">
+        <div class="p-fluid">
+          <div class="field mb-3">
+            <label>Title</label>
+            <input pInputText [(ngModel)]="current.title" />
+          </div>
+          <div class="field mb-3">
+            <label>Author</label>
+            <input pInputText [(ngModel)]="current.author" />
+          </div>
+          <div class="field mb-3">
+            <label>Image URL</label>
+            <input pInputText [(ngModel)]="current.imageUrl" />
+          </div>
+          <div class="field mb-3">
+            <label>Content (HTML allowed)</label>
+            <textarea pInputTextarea rows="6" cols="30" [(ngModel)]="current.content"></textarea>
+          </div>
+          <div class="field">
+            <p-checkbox [(ngModel)]="current.published" binary="true"></p-checkbox> <label class="ml-2">Published</label>
+          </div>
+        </div>
+
+        <p-footer>
+          <button pButton type="button" label="Save" (click)="save()" class="p-button-primary mr-2"></button>
+          <button pButton type="button" label="Cancel" (click)="displayDialog=false" class="p-button-secondary"></button>
+        </p-footer>
+      </p-dialog>
+    </div>
